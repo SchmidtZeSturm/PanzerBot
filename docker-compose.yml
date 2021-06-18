@@ -1,0 +1,12 @@
+---
+version: "3.9"
+services:
+  panzerbot:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    environment:
+      PANZERBOT_TOKEN: "${PANZERBOT_TOKEN:?err}"
+      NODE_ENV: "${NODE_ENV:-production}"
+    volumes:
+      - ./:/panzerbot
