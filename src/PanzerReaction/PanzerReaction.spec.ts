@@ -33,5 +33,25 @@ describe('PanzerReaction handler', () => {
     reaction(message as Message);
 
     expect(message.react).toHaveBeenCalledWith(emoji);
-  })
+  });
+
+  test("It does not react to a message that does not mention a tank", () => {
+    const message = mocked(Message, true);
+    const emojiCollection = mocked(EmojiCollection);
+    const emoji = mocked(GuildEmoji);
+    emojiCollection.findByName = jest.fn().mockImplementation(() => {
+      return emoji;
+    });
+    message.content = 'A very safe unt unarmoured message ja?';
+
+    message.react = jest.fn().mockImplementation(() => {});
+
+    const panzerReaction = new PanzerReaction(emojiCollection);
+
+    const reaction = panzerReaction.panzerReact();
+
+    reaction(message as Message);
+
+    expect(message.react).not.toHaveBeenCalledWith(emoji);
+  });
 });

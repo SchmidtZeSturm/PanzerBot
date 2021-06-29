@@ -1,20 +1,32 @@
-import { result } from './env';
+import './env';
 import { Client } from "discord.js";
+import { InvalidPanzerBotToken } from "~PanzerBot/InvalidPanzerBotToken"
 import { PanzerReaction } from "~PanzerBot/PanzerReaction";
 import { EmojiCollection } from "~PanzerBot/EmojiCollection";
 
-console.log(result);
+const fetchToken = () => {
+  const token = process.env.PANZERBOT_TOKEN;
+
+  if (!token) {
+    throw InvalidPanzerBotToken.fromEmpty(token);
+  }
+
+  return token;
+};
 
 const client = new Client();
-const token = process.env.PANZERBOT_TOKEN;
 
-const emojiCollection = new EmojiCollection();
-const panzerReaction = new PanzerReaction(emojiCollection);
+const panzerReaction = new PanzerReaction(EmojiCollection.create());
 
 panzerReaction.register(client);
 
 client.on('ready', () => {
-  console.log('I am ready!');
+  console.log('I am ready, ja?');
 });
 
-client.login(token);
+try {
+  client.login(fetchToken());
+} catch(e) {
+  client.destroy();
+  console.log(e);
+}

@@ -1,6 +1,16 @@
-import { config } from 'dotenv';
+import { config, DotenvConfigOutput } from 'dotenv';
 import yn from 'yn';
 
 const debugMode = yn(process.env.DEBUG);
 
-export const result = config({ debug: debugMode });
+type Result = null | DotenvConfigOutput;
+
+const env = (): Result => {
+  try {
+    return config({ debug: debugMode });
+  } catch(e) {
+    return null;
+  }
+}
+
+export const result = env();

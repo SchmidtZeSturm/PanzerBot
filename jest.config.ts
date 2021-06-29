@@ -25,6 +25,7 @@ export default async (): Promise<Config.InitialOptions> => {
     modulePaths: [
       '<roorDir>/tests/fixtures',
       '<rootDir>/src'
-    ]
+    ],
+    coverageDirectory: resolve(__dirname, 'build/coverage')
   };
 };

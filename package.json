@@ -15,6 +15,7 @@
     "@babel/register": "^7.14.5",
     "@typescript-eslint/parser": "^4.26.1",
     "babel-jest": "^27.0.2",
+    "babel-loader": "^8.2.2",
     "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.26.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
@@ -24,11 +25,13 @@
     "json5": "^2.2.0",
     "module-alias": "^2.2.2",
     "require-json5": "^1.1.0",
+    "snyk": "^1.645.0",
     "ts-jest": "^26.5.6",
     "ts-node": "^9.1.1",
     "ttypescript": "^1.5.12",
     "typescript-transform-paths": "^2.2.4",
-    "webpack": "^5.37.0",
+    "webpack": "^5.41.0",
+    "webpack-cli": "^4.7.2",
     "yarn": "^1.22.10"
   },
   "dependencies": {
@@ -50,10 +53,11 @@
     "zlib-sync": "^0.1.7"
   },
   "scripts": {
-    "transpile": "babel build/ts --out-dir dist --ignore 'build/ts/**/*.spec.js'",
-    "compile":   "ttsc && yarn transpile",
-    "start":     "node dist/index.js",
-    "jaaa":      "ts-node src/index.ts",
-    "test":      "jest"
+    "babel": "babel build/ts --out-dir dist --ignore 'build/ts/**/*.spec.js'",
+    "transpile": "ttsc",
+    "compile": "yarn transpile && yarn babel",
+    "start": "node dist/index.js",
+    "jaaa": "ts-node src/index.ts",
+    "test": "jest"
   }
 }

@@ -5,8 +5,12 @@ export class EmojiCollection {
 
   private emojis: Map<string, GuildEmoji>;
 
-  public constructor() {
-    this.emojis = new Map<string, GuildEmoji>();
+  public static create(): EmojiCollection {
+    return new EmojiCollection(new Map<string, GuildEmoji>());
+  }
+
+  public constructor(emojis: Map<string, GuildEmoji>) {
+    this.emojis = emojis;
   }
 
   public findByName(message: Message, name: string): GuildEmoji {

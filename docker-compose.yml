@@ -2,11 +2,13 @@
 version: "3.9"
 services:
   panzerbot:
+    image: schmidtzesturm/panzerbot:1.0.0
     build:
       context: ./
-      dockerfile: ./docker/Dockerfile
+      dockerfile: Dockerfile
     environment:
-      PANZERBOT_TOKEN: "${PANZERBOT_TOKEN:?err}"
+      PANZERBOT_TOKEN: "${PANZERBOT_TOKEN?err}"
       NODE_ENV: "${NODE_ENV:-production}"
+      DEBUG: "${DEBUG:-false}"
     volumes:
       - ./:/panzerbot
